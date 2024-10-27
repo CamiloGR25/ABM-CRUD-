@@ -3,7 +3,17 @@
 @section('title', 'Listado de Usuarios')
 
 @section('content')
-<a href="{{ route('users.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md mb-4 inline-block">Crear Nuevo Usuario</a>
+<div class="flex justify-between items-center mb-4">
+    <a href="{{ route('users.create') }}" class="bg-blue-500 text-white px-4 py-2 rounded-md">Crear Nuevo Usuario</a>
+
+    <!-- Botón de Cerrar Sesión -->
+    <form action="{{ route('logout') }}" method="POST" class="inline">
+        @csrf
+        <button type="submit" class="bg-red-500 text-white px-4 py-2 rounded-md hover:bg-red-600">
+            Cerrar Sesión
+        </button>
+    </form>
+</div>
 
 <table class="min-w-full bg-white border border-gray-300">
     <thead>

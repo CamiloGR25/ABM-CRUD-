@@ -42,7 +42,7 @@ class UserController extends Controller
             'apellido' => 'required|string|max:255',
             'correo' => 'required|email|unique:users',
             'nro_telefono' => 'nullable|string|max:15',
-            'contraseña' => 'required|string'
+            'password' => 'required|string'
         ]);
         
         // creacion en la base de datos
@@ -51,7 +51,7 @@ class UserController extends Controller
             'apellido' => $request->apellido,
             'correo' => $request->correo,
             'nro_telefono' => $request->nro_telefono,
-            'contraseña' => bcrypt($request->contraseña),
+            'password' => bcrypt($request->password),
         ]);
     
         return redirect()->route('users.index')->with('success', 'Usuario creado con éxito');
@@ -94,7 +94,7 @@ class UserController extends Controller
             'apellido' => 'required|string|max:255',
             'correo' => 'required|email|unique:users,correo,' . $id,
             'nro_telefono' => 'nullable|string|max:15',
-            'contraseña' => 'nullable|string|min:8'
+            'password' => 'nullable|string'
         ]);
     
         $user = User::findOrFail($id);
@@ -103,8 +103,8 @@ class UserController extends Controller
         $user->correo = $request->correo;
         $user->nro_telefono = $request->nro_telefono;
     
-        if ($request->filled('contraseña')) {
-            $user->contraseña = bcrypt($request->contraseña);
+        if ($request->filled('password')) {
+            $user->password = bcrypt($request->password);
         }
     
         $user->save();
